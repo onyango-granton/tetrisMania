@@ -1,5 +1,11 @@
 package main
 
+import (
+	"tetris/utilities"
+)
+
 func main() {
-	tetro := Reader()
+	tetro := utilities.Reader()
+
+	valid(tetro)
 }
