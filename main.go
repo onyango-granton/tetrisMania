@@ -7,5 +7,7 @@ import (
 func main() {
 	tetro := utilities.Reader()
 
-	valid(tetro)
+	utilities.Valid(tetro)
+
+	tetro = utilities.Trimmer(tetro)
 }
