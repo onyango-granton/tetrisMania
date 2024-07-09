@@ -16,6 +16,7 @@ func main() {
 	var finalboard [][]string
 	for {
 		board := utilities.CreateInitialBoard(Size)
+		solvedBoard = utilities.Solve(board, result)
 	}
 
 }
