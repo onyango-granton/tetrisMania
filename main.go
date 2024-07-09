@@ -16,7 +16,12 @@ func main() {
 	var finalboard [][]string
 	for {
 		board := utilities.CreateInitialBoard(Size)
-		solvedBoard = utilities.Solve(board, result)
+		finalboard = utilities.Solve(board, tetro)
+		if finalboard != nil {
+			break
+		}
+		Size++
 	}
 
+	utilities.PrintBoard(finalboard)
 }
