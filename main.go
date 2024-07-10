@@ -10,7 +10,7 @@ func main() {
 	tetro := utilities.Reader()
 
 	err := utilities.Valid(tetro)
-	if err == "Invalid file" {
+	if err == "Invalid File" {
 		fmt.Println("ERROR")
 		return
 	}
