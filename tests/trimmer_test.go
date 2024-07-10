@@ -15,7 +15,8 @@ func TestTrimmer(t *testing.T) {
 		args args
 		want [][]string
 	}{
-		{name: "stick", args: args{tetro: [][]string{{"...A", "...A", "...A", "...A"}, {"....", "BB..", "BB..", "...."}}}, want: [][]string{{"A", "A", "A", "A"}, {"BB", "BB"}}},
+		{name: "stick", args: args{tetro: [][]string{{"...A", "...A", "...A", "...A"}}}, want: [][]string{{"A", "A", "A", "A"}}},
+		{name: "box", args: args{tetro: [][]string{{"....", "BB..", "BB..", "...."}}}, want: [][]string{{"BB", "BB"}}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

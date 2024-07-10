@@ -15,6 +15,7 @@ func TestValid(t *testing.T) {
 		want string
 	}{
 		{name: "valid", args: args{tetro: [][]string{{"...#", "...#", "...#", "...#"}}}, want: "ok"},
+		{name: "Invalid", args: args{tetro: [][]string{{"....", "....", "....", "...."}}}, want: "Invalid File"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
