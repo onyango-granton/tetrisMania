@@ -1,27 +1,24 @@
 package utilities
 
-import (
-	"fmt"
-	"os"
-)
-
-func Valid(tetro [][]string) {
+func Valid(tetro [][]string) string {
 	for _, tet := range tetro {
 		if len(tet) != 4 {
-			fmt.Println("invalid file")
-			os.Exit(0)
+			return "Invalid file"
 		}
-		Connection(tet)
+		ans := Connection(tet)
+		if ans == "Invalid File" {
+			return "Invalid file"
+		}
 		for _, str := range tet {
 			if len(str) != 4 {
-				fmt.Println("invalid file")
-				os.Exit(0)
+				return "Invalid file"
 			}
 		}
 	}
+	return "ok"
 }
 
-func Connection(tet []string) {
+func Connection(tet []string) string {
 	countConnections := 0
 	countchar := 0
 	for i, str := range tet {
@@ -46,7 +43,7 @@ func Connection(tet []string) {
 	}
 
 	if countConnections < 6 || countchar != 4 {
-		fmt.Println("invalid file")
-		os.Exit(0)
+		return "Invalid file"
 	}
+	return "ok"
 }

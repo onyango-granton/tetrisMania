@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"math"
 	"tetris/utilities"
 )
@@ -8,7 +9,11 @@ import (
 func main() {
 	tetro := utilities.Reader()
 
-	utilities.Valid(tetro)
+	err := utilities.Valid(tetro)
+	if err == "Invalid file" {
+		fmt.Println("ERROR")
+		return
+	}
 
 	tetro = utilities.Trimmer(tetro)
 
@@ -16,6 +21,7 @@ func main() {
 	var finalboard [][]string
 	for {
 		board := utilities.CreateBoard(Size)
+		fmt.Println(board)
 		finalboard = utilities.Solve(board, tetro)
 		if finalboard != nil {
 			break
