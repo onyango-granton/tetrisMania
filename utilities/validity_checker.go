@@ -2,6 +2,7 @@ package utilities
 
 func Valid(tetro [][]string) string {
 	for _, tet := range tetro {
+		// Checks if length of a tetromino is 4
 		if len(tet) != 4 {
 			return "Invalid file"
 		}
@@ -9,6 +10,7 @@ func Valid(tetro [][]string) string {
 		if ans == "Invalid File" {
 			return "Invalid file"
 		}
+		//checks the length of the string if it is 4
 		for _, str := range tet {
 			if len(str) != 4 {
 				return "Invalid file"
@@ -18,6 +20,7 @@ func Valid(tetro [][]string) string {
 	return "ok"
 }
 
+// checks if the connection from one charachter to the other is 6 and above and if there are only 4 charachters
 func Connection(tet []string) string {
 	countConnections := 0
 	countchar := 0
