@@ -1,5 +1,6 @@
 package utilities
 
+// CreateBoard creates a board for placing tetrominos.
 func CreateBoard(size int) [][]string {
 	board := make([][]string, size)
 	for i := range board {

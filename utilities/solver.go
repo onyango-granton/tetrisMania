@@ -1,5 +1,6 @@
 package utilities
 
+// Solve attempts to place tetrominosin the smallest square possible using recursive method.
 func Solve(board [][]string, tetrominoes [][]string) [][]string {
 	if Solvetetro(board, tetrominoes, 0) {
 		return board
@@ -8,7 +9,7 @@ func Solve(board [][]string, tetrominoes [][]string) [][]string {
 }
 
 func Solvetetro(board [][]string, tetrominoes [][]string, index int) bool {
-	// Base case: all tetrominoes have been placed
+	// checks if all tetrominos have been exhausted
 	if index == len(tetrominoes) {
 		return true
 	}
@@ -23,7 +24,7 @@ func Solvetetro(board [][]string, tetrominoes [][]string, index int) bool {
 				if Solvetetro(board, tetrominoes, index+1) {
 					return true
 				}
-				// If unsuccessful, remove the tetromino and try the next position
+				// If unsuccessful remove the current tetromino and try the next position
 				removeTetromino(board, tetromino, x, y)
 			}
 		}
@@ -37,9 +38,8 @@ func canPlace(board [][]string, tetromino []string, x, y int) bool {
 	for dy, row := range tetromino {
 		for dx, char := range row {
 			if char != '.' {
-				newX, newY := x+dx, y+dy
 				// Check if the position is within the board and empty
-				if newY >= len(board) || newX >= len(board[0]) || board[newY][newX] != "." {
+				if y+dy >= len(board) || x+dx >= len(board[0]) || board[y+dy][x+dx] != "." {
 					return false
 				}
 			}

@@ -6,6 +6,7 @@ import (
 	"strings"
 )
 
+// Reader reads tetrominos from a text file and append hashes(#) with letters.
 func Reader() [][]string {
 	output, err := os.ReadFile(os.Args[1])
 	if err != nil {
@@ -28,7 +29,7 @@ func Reader() [][]string {
 				} else if char == '.' {
 					new.WriteRune(char)
 				} else {
-					fmt.Println("invalid file")
+					fmt.Println("ERROR")
 					os.Exit(0)
 				}
 			}
