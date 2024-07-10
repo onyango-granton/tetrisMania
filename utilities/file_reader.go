@@ -7,7 +7,11 @@ import (
 )
 
 func Reader() [][]string {
-	output, _ := os.ReadFile(os.Args[1])
+	output, err := os.ReadFile(os.Args[1])
+	if err != nil {
+		fmt.Println("ERROR")
+		os.Exit(0)
+	}
 
 	output2 := strings.Split(string(output), "\n")
 
