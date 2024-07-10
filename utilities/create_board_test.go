@@ -19,7 +19,7 @@ func TestCreateInitialBoard(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := CreateInitialBoard(tt.args.size); !reflect.DeepEqual(got, tt.want) {
+			if got := CreateBoard(tt.args.size); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("CreateInitialBoard() = %v, want %v", got, tt.want)
 			}
 		})

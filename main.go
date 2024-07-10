@@ -15,7 +15,7 @@ func main() {
 	Size := int(math.Ceil(math.Sqrt(float64(len(tetro) * 4))))
 	var finalboard [][]string
 	for {
-		board := utilities.CreateInitialBoard(Size)
+		board := utilities.CreateBoard(Size)
 		finalboard = utilities.Solve(board, tetro)
 		if finalboard != nil {
 			break
