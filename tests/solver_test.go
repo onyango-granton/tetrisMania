@@ -16,7 +16,7 @@ func TestSolve(t *testing.T) {
 		args args
 		want [][]string
 	}{
-		{name: "Box", args: args{board: [][]string{{".","."},{ ".","."}}, tetrominoes: [][]string{{"AA", "AA"}}}, want: [][]string{{"A","A"},{"A","A"}}},
+		{name: "Box", args: args{board: [][]string{{".", "."}, {".", "."}}, tetrominoes: [][]string{{"AA", "AA"}}}, want: [][]string{{"A", "A"}, {"A", "A"}}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

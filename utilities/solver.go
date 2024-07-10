@@ -32,7 +32,6 @@ func Solvetetro(board [][]string, tetrominoes [][]string, index int) bool {
 	return false
 }
 
-
 // canPlace checks if a tetromino can be placed at a given position on the board
 func canPlace(board [][]string, tetromino []string, x, y int) bool {
 	for dy, row := range tetromino {
