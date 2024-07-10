@@ -1,8 +1,9 @@
-package utilities
+package tests
 
 import (
 	"reflect"
 	"testing"
+	"tetris/utilities"
 )
 
 func TestTrimmer(t *testing.T) {
@@ -18,7 +19,7 @@ func TestTrimmer(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := Trimmer(tt.args.tetro); !reflect.DeepEqual(got, tt.want) {
+			if got := utilities.Trimmer(tt.args.tetro); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("Trimmer() = %v, want %v", got, tt.want)
 			}
 		})

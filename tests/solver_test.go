@@ -1,8 +1,9 @@
-package utilities
+package tests
 
 import (
 	"reflect"
 	"testing"
+	"tetris/utilities"
 )
 
 func TestSolve(t *testing.T) {
@@ -19,7 +20,7 @@ func TestSolve(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := Solve(tt.args.board, tt.args.tetrominoes); !reflect.DeepEqual(got, tt.want) {
+			if got := utilities.Solve(tt.args.board, tt.args.tetrominoes); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("Solve() = %v, want %v", got, tt.want)
 			}
 		})

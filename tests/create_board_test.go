@@ -1,8 +1,9 @@
-package utilities
+package tests
 
 import (
 	"reflect"
 	"testing"
+	"tetris/utilities"
 )
 
 func TestCreateInitialBoard(t *testing.T) {
@@ -19,7 +20,7 @@ func TestCreateInitialBoard(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := CreateBoard(tt.args.size); !reflect.DeepEqual(got, tt.want) {
+			if got := utilities.CreateBoard(tt.args.size); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("CreateInitialBoard() = %v, want %v", got, tt.want)
 			}
 		})
