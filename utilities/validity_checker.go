@@ -1,6 +1,9 @@
 package utilities
 
 func Valid(tetro [][]string) string {
+	if len(tetro) > 26 {
+		return "Invalid File"
+	}
 	for _, tet := range tetro {
 		// Checks if length of a tetromino is 4
 		if len(tet) != 4 {
