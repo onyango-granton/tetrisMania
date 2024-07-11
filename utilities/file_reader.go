@@ -8,6 +8,10 @@ import (
 
 // Reader reads tetrominos from a text file and append hashes(#) with letters.
 func Reader() [][]string {
+	if len(os.Args) != 2 {
+		fmt.Println("ERROR")
+		os.Exit(0)
+	}
 	output, err := os.ReadFile(os.Args[1])
 	if err != nil {
 		fmt.Println("ERROR")
