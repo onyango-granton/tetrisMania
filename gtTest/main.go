@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math"
 	"os"
+	"runtime"
 	"strings"
 )
 
@@ -19,6 +20,7 @@ func byteToInt(b byte) (int, error) {
 	} else if b == '#' {
 		return 1, nil
 	} else {
+		fmt.Println(os.Getwd())
 		return 0, errors.New("error in sample file")
 	}
 }
@@ -32,8 +34,11 @@ func byteToInt(b byte) (int, error) {
 // }
 
 func stringToIntSlice(s string) ([]int, error) {
+	//file,_ := os.ReadFile("sample.txt")
+	//fmt.Println(file)
 	res := []int{}
 	if len(s) != 4 {
+		fmt.Println(s)
 		return nil, errors.New("invalid length entry in file")
 	}
 	for _, b := range s {
@@ -68,6 +73,7 @@ func sliceIsEmpty(num []int) bool {
 }
 
 func isSurroundedByOnes(arr [][]int, row, col int) bool {
+
 	// Check horizontally
 	if col-1 >= 0 && allOne(arr[row][col-1], arr[row][col]) || col+1 < len(arr[row]) && allOne(arr[row][col+1], arr[row][col]) {
 		return true
@@ -79,7 +85,58 @@ func isSurroundedByOnes(arr [][]int, row, col int) bool {
 	return false
 }
 
+func fullyConnected(tetro [][]int) bool {
+	//var tetro = [][]int{{0, 0, 0, 0}, {0, 1, 1, 0}, {0, 0, 1, 0}, {0, 0, 1, 0}}
+	//var tetro = [][]int{{1, 1, 1, 1}}
+	connection := 0
+	for row := range tetro {
+		for col := range tetro[row] {
+			if tetro[row][col] == 1 {
+				if col+1 <= len(tetro[row])-1 && tetro[row][col+1] == 1 {
+					/*if col == 0 {
+						fmt.Print("first")
+					}
+					if col == 1 && row == 2 {
+						fmt.Print("third")
+					}
+					fmt.Println("right connection")*/
+					connection++
+				}
+				if col-1 >= 0 && tetro[row][col-1] == 1 {
+					//if col == 1 && row == 1 {
+					//	fmt.Print("second")
+					//}
+					//fmt.Println("left connection")
+					connection++
+				}
+				if row+1 <= len(tetro)-1 && tetro[row+1][col] == 1 {
+					//if col == 1 && row == 1 {
+					//	fmt.Print("second")
+					//}
+					//fmt.Println("down connection")
+					connection++
+				}
+				if row-1 >= 0 && tetro[row-1][col] == 1 {
+					//if col == 1 && row == 2 {
+					//	fmt.Print("third")
+					//}
+					//fmt.Println("up connection")
+					connection++
+				}
+			}
+		}
+	}
+	//fmt.Println(connection)
+	if connection == 6 || connection == 8 {
+		return true
+	} else {
+		return false
+	}
+}
+
+
 func isValidTetro(tetro [][]int) (bool, error) {
+	fmt.Println(tetro)
 	var bordercount int
 	var linecount int
 
@@ -94,10 +151,22 @@ func isValidTetro(tetro [][]int) (bool, error) {
 			}
 		}
 	}
+
+	for row := 0; row < len(tetro); row++ {
+		for col := 0; col < len(tetro[row]); col++ {
+
+		}
+	}
+
 	if bordercount > 4 || linecount > 4 {
 		return false, errors.New("invalid Tetromino")
 	} else {
-		return true, nil
+		if fullyConnected(tetro){
+			return true, nil
+		} else {
+			return false, errors.New("tetromino is invalid")
+		}
+		
 	}
 }
 
@@ -105,6 +174,18 @@ func tetroGroupFunc(textFile string) ([]Tetromino, int) {
 	tetrominoesGroup := []Tetromino{}
 	// opens text file
 	sampleFile, err := os.ReadFile(textFile)
+	if runtime.GOOS == "windows"{
+		
+		for i, ch := range sampleFile{
+			if i+1 < len(sampleFile) && ch == byte(rune(13)){
+				//fmt.Print("here")
+				sampleFile = append(sampleFile[:i],sampleFile[i+1:]...)
+			} else if i+1 < len(sampleFile) && ch == byte(rune(13)){
+				sampleFile = sampleFile[:i]
+			}
+		}
+	}
+	//fmt.Println(sampleFile,234)
 	if err != nil {
 		fmt.Println(err.Error())
 		return nil, 0
@@ -150,7 +231,7 @@ func tetroGroupFunc(textFile string) ([]Tetromino, int) {
 		}
 	}
 
-	gridSize := math.Sqrt(float64(len(tetrominoesGroup) * 4 ))
+	gridSize := math.Sqrt(float64(len(tetrominoesGroup) * 4))
 
 	return trimTetrominoListFunc(tetrominoesGroup), int(math.Ceil(gridSize))
 
@@ -161,7 +242,7 @@ func tetroGroupFunc(textFile string) ([]Tetromino, int) {
 }
 
 var (
-	tetroGroup, gridSize = tetroGroupFunc("tetris.txt")
+	tetroGroup, gridSize = tetroGroupFunc("sample.txt")
 	grid                 = make([][]string, gridSize)
 )
 
@@ -239,6 +320,9 @@ func printGrid() {
 }
 
 func main() {
+	//if runtime.GOOS == "windows"{
+	//	fmt.Println("Here we have windows")
+	//}
 	// fmt.Println(tetroGroupFunc("tetris.txt"))
 	// fmt.Println(trimTetrominoListFunc())
 	// initializes a 6 * 6 grid
@@ -249,26 +333,24 @@ func main() {
 	} else {
 		fmt.Println("No solutions found")
 	}
+	//fullyConnected()
 }
 
-
-
-func trimTetrominoListFunc(tetrominoList []Tetromino) []Tetromino{
+func trimTetrominoListFunc(tetrominoList []Tetromino) []Tetromino {
 	// var result []Tetromino
 	// tetrominoList, _ := tetroGroupFunc("tetris.txt")
 
 	// fmt.Println(tetrominoList)
 
-	for tetromino := range tetrominoList{
+	for tetromino := range tetrominoList {
 		tetrominoList[tetromino].shape = trimTetromino(tetrominoList[tetromino].shape)
 	}
 	return tetrominoList
 }
 
-
 func trimTetromino(tetro [][]int) [][]int {
 	// var res = tetro
-	
+
 	// for row, _ := range tetro{
 	// 	for col, _ := range tetro[row]{
 	// 		fmt.Println(tetro)
@@ -279,17 +361,17 @@ func trimTetromino(tetro [][]int) [][]int {
 
 	// 			} else {
 	// 				// tetro[row] = tetro[row][:col]
-	// 				res[row] = tetro[row][:col] 
-	// 			}				
+	// 				res[row] = tetro[row][:col]
+	// 			}
 	// 		} else if len(tetro) == 2 && tetro[row][col] == 0 && tetro[1][col] == 0 {
 	// 			// fmt.Println("Here")
 	// 			// fmt.Println(tetro[row])
 	// 			if col+1 < len(tetro[row]) - 1{
 	// 				//tetro[row] = tetro[row][col+1:]
-	// 				res[row] =  tetro[row][col+1:] 
+	// 				res[row] =  tetro[row][col+1:]
 	// 			} else {
 	// 				//tetro[row] = tetro[row][:col]
-	// 				res[row] = tetro[row][:col] 
+	// 				res[row] = tetro[row][:col]
 	// 			}
 	// 			// fmt.Println("He2re")
 	// 		}
@@ -306,46 +388,45 @@ func trimTetromino(tetro [][]int) [][]int {
 
 	// 			} else {
 	// 				// tetro[row] = tetro[row][:col]
-	// 				res[row] = tetro[row][:col] 
-	// 			}				
-	// 		} 
+	// 				res[row] = tetro[row][:col]
+	// 			}
+	// 		}
 	// 	}
 	// }
 
-	for i:= 0; i<4; i++ {
+	for i := 0; i < 4; i++ {
 
-	if len(tetro) == 3{
-		if tetro[0][0] == 0 && tetro[1][0] == 0 && tetro[2][0] == 0{
-			tetro[0] = tetro[0][1:]
-			tetro[1] = tetro[1][1:]
-			tetro[2] = tetro[2][1:]
-		} else if tetro[0][len(tetro[0])-1] == 0 && tetro[1][len(tetro[1])-1] == 0 && tetro[2][len(tetro[2])-1] == 0 {
-			tetro[0] = tetro[0][:len(tetro[0])-1]
-			tetro[1] = tetro[1][:len(tetro[1])-1]
-			tetro[2] = tetro[2][:len(tetro[2])-1]
+		if len(tetro) == 3 {
+			if tetro[0][0] == 0 && tetro[1][0] == 0 && tetro[2][0] == 0 {
+				tetro[0] = tetro[0][1:]
+				tetro[1] = tetro[1][1:]
+				tetro[2] = tetro[2][1:]
+			} else if tetro[0][len(tetro[0])-1] == 0 && tetro[1][len(tetro[1])-1] == 0 && tetro[2][len(tetro[2])-1] == 0 {
+				tetro[0] = tetro[0][:len(tetro[0])-1]
+				tetro[1] = tetro[1][:len(tetro[1])-1]
+				tetro[2] = tetro[2][:len(tetro[2])-1]
+			}
+		}
+
+		if len(tetro) == 2 {
+			if tetro[0][0] == 0 && tetro[1][0] == 0 {
+				tetro[0] = tetro[0][1:]
+				tetro[1] = tetro[1][1:]
+			} else if tetro[0][len(tetro[0])-1] == 0 && tetro[1][len(tetro[1])-1] == 0 {
+				tetro[0] = tetro[0][:len(tetro[0])-1]
+				tetro[1] = tetro[1][:len(tetro[1])-1]
+			}
 		}
 	}
-
-	if len(tetro) == 2{
-		if tetro[0][0] == 0 && tetro[1][0] == 0 {
-			tetro[0] = tetro[0][1:]
-			tetro[1] = tetro[1][1:]
-		} else if tetro[0][len(tetro[0])-1] == 0 && tetro[1][len(tetro[1])-1] == 0 {
-			tetro[0] = tetro[0][:len(tetro[0])-1]
-			tetro[1] = tetro[1][:len(tetro[1])-1]
-		}
-	}
-}
 
 	return tetro
-
 
 	// if len(tetro) == 3 && tetro[row][col] == 0 && tetro[1][col] == 0 && tetro[2][col] == 0{
 	// 	if col+1 > len(tetro[row]) - 1{
 	// 		tetro[row] = tetro[row][col+1:]
 	// 	} else {
 	// 		tetro[row] = tetro[row][:col]
-	// 	}				
+	// 	}
 	// } else if len(tetro) == 2 && tetro[row][col] == 0 && tetro[row+1][col] == 0 {
 	// 	if col+1 > len(tetro[row]) - 1{
 	// 		tetro[row] = tetro[row][col+1:]
@@ -353,7 +434,5 @@ func trimTetromino(tetro [][]int) [][]int {
 	// 		tetro[row] = tetro[row][:col]
 	// 	}
 	// }
-
-
 
 }
