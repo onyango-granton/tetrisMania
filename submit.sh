@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define the directories
-directories=("gtTest/test2" "gtTest/test3")
+directories=("gemini" "gtTest" "chatgpt" "claude" "claude2" "gtTest")
 
 # Iterate over each directory
 for dir in "${directories[@]}"; do
