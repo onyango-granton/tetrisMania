@@ -136,7 +136,7 @@ func fullyConnected(tetro [][]int) bool {
 
 
 func isValidTetro(tetro [][]int) (bool, error) {
-	fmt.Println(tetro)
+	// fmt.Println(tetro)
 	var bordercount int
 	var linecount int
 
@@ -242,7 +242,7 @@ func tetroGroupFunc(textFile string) ([]Tetromino, int) {
 }
 
 var (
-	tetroGroup, gridSize = tetroGroupFunc("sample.txt")
+	tetroGroup, gridSize = tetroGroupFunc("tetris.txt")
 	grid                 = make([][]string, gridSize)
 )
 
