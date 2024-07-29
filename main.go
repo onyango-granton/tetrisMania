@@ -2,31 +2,37 @@ package main
 
 import (
 	"fmt"
-	"math"
-	"tetris/utilities"
+	"os"
+
+	"tetris/utils"
 )
 
 func main() {
-	tetro := utilities.Reader()
+	// 	if len(os.Args) != 2 {
+	// 		fmt.Println(`invalid number of arguments
+	// Usage:
+	// go run . <filename.txt>`)
+	// 	}
 
-	err := utilities.Valid(tetro)
-	if err == "Invalid File" {
-		fmt.Println("ERROR")
+	// 	//multiple txt extensions
+	// 	filenameList := strings.Split(os.Args[1],".")
+	// 	if len(filenameList) != 2{
+	// 		fmt.Println(`invalid filename and/or extension
+	// Usage:
+	// go run . <filename.txt>`)
+	// 	}
+
+	err := utils.ErrorHandling()
+	if err != nil {
+		fmt.Println(err)
 		return
 	}
 
-	tetro = utilities.Trimmer(tetro)
-
-	Size := int(math.Ceil(math.Sqrt(float64(len(tetro) * 4))))
-	var finalboard [][]string
-	for {
-		board := utilities.CreateBoard(Size)
-		finalboard = utilities.Solve(board, tetro)
-		if finalboard != nil {
-			break
-		}
-		Size++
+	tetrogroup, gridSize := utils.TetroGroupFunc(os.Args[1])
+	grid := utils.InitGrid(gridSize)
+	if utils.CompleteGrid(tetrogroup, grid,0){
+		utils.PrintGrid(grid)
+	} else {
+		fmt.Println("No solutions found")
 	}
-
-	utilities.Print(finalboard)
 }
