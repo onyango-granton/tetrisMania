@@ -23,7 +23,10 @@ cd tetris-optimizer
 ```bash
 go mod init tetris-optimizer
 ```
-4. Run the program from the command line, providing a string as an argument and file to store art justify
+4. Run the program from the terminal, with a text file containing tetrominoes
+```bash
+go run . sample.txt
+```
 
 
 ## Example 1
