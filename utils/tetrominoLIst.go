@@ -8,14 +8,15 @@ import (
 	"strings"
 )
 
-
 type Tetromino struct {
 	shape [][]int
 	name  string
 }
 
-/*sliceIsEmpty Checks if a slice of integers is empty, 
-meaning all elements are zero.*/
+/*
+sliceIsEmpty Checks if a slice of integers is empty,
+meaning all elements are zero.
+*/
 func sliceIsEmpty(num []int) bool {
 	var count int
 	for i := range num {
@@ -30,28 +31,32 @@ func sliceIsEmpty(num []int) bool {
 	}
 }
 
-/*TetroGroupFunc Reads a text file containing Tetromino shapes, processes them, 
-and returns a list of valid Tetrominoes along with the grid size required to accommodate them.*/
+/*
+TetroGroupFunc Reads a text file containing Tetromino shapes, processes them,
+and returns a list of valid Tetrominoes along with the grid size required to accommodate them.
+*/
 func TetroGroupFunc(textFile string) ([]Tetromino, int) {
 	tetrominoesGroup := []Tetromino{}
-	// opens text file
 	sampleFile, err := os.ReadFile(textFile)
 	if runtime.GOOS == "windows" {
 		for i, ch := range sampleFile {
 			if i+1 < len(sampleFile) && ch == byte(rune(13)) {
-				// fmt.Print("here")
 				sampleFile = append(sampleFile[:i], sampleFile[i+1:]...)
 			} else if i+1 < len(sampleFile) && ch == byte(rune(13)) {
 				sampleFile = sampleFile[:i]
 			}
 		}
 	}
-	// fmt.Println(sampleFile,234)
+
 	if err != nil {
 		fmt.Println(err.Error())
 		return nil, 0
 	}
 	var nums [][]int
+	if isConnected(strings.Split(string(sampleFile), "\n")) {
+		fmt.Println("ERROR")
+		os.Exit(0)
+	}
 	for i, ch := range strings.Split(string(sampleFile), "\n") {
 		if ch == "" {
 			continue
@@ -96,8 +101,4 @@ func TetroGroupFunc(textFile string) ([]Tetromino, int) {
 
 	return trimTetrominoListFunc(tetrominoesGroup), int(math.Ceil(gridSize))
 
-	// for k,_ := range tetrominoes{
-	// 	newTetro := Tetromino{shape: tetrominoes[k], name: string(k)}
-	// 	tetrominoesGroup = append(tetrominoesGroup, newTetro)
-	// }
 }
