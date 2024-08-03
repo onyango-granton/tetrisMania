@@ -2,11 +2,6 @@ package utils
 
 /*trimTetrominoListFunc function takes a list of tetrominos and trims each tetromino in the list by removing empty rows and columns.*/
 func trimTetrominoListFunc(tetrominoList []Tetromino) []Tetromino {
-	// var result []Tetromino
-	// tetrominoList, _ := tetroGroupFunc("tetris.txt")
-
-	// fmt.Println(tetrominoList)
-
 	for tetromino := range tetrominoList {
 		tetrominoList[tetromino].shape = trimTetromino(tetrominoList[tetromino].shape)
 	}
