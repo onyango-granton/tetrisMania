@@ -27,41 +27,20 @@ func isSurroundedByOnes(arr [][]int, row, col int) bool {
 /*fullyConnected func Checks if a tetromino shape (represented as a 2D slice) is fully connected. A tetromino is considered fully 
 connected if each '1' in the shape is directly connected to at least one other '1' horizontally or vertically.*/
 func fullyConnected(tetro [][]int) bool {
-	// var tetro = [][]int{{0, 0, 0, 0}, {0, 1, 1, 0}, {0, 0, 1, 0}, {0, 0, 1, 0}}
-	// var tetro = [][]int{{1, 1, 1, 1}}
 	connection := 0
 	for row := range tetro {
 		for col := range tetro[row] {
 			if tetro[row][col] == 1 {
 				if col+1 <= len(tetro[row])-1 && tetro[row][col+1] == 1 {
-					/*if col == 0 {
-						fmt.Print("first")
-					}
-					if col == 1 && row == 2 {
-						fmt.Print("third")
-					}
-					fmt.Println("right connection")*/
 					connection++
 				}
 				if col-1 >= 0 && tetro[row][col-1] == 1 {
-					//if col == 1 && row == 1 {
-					//	fmt.Print("second")
-					//}
-					//fmt.Println("left connection")
 					connection++
 				}
 				if row+1 <= len(tetro)-1 && tetro[row+1][col] == 1 {
-					//if col == 1 && row == 1 {
-					//	fmt.Print("second")
-					//}
-					//fmt.Println("down connection")
 					connection++
 				}
 				if row-1 >= 0 && tetro[row-1][col] == 1 {
-					//if col == 1 && row == 2 {
-					//	fmt.Print("third")
-					//}
-					//fmt.Println("up connection")
 					connection++
 				}
 			}
@@ -78,7 +57,6 @@ func fullyConnected(tetro [][]int) bool {
 /*isValidTetro Validates if a given tetromino shape is valid. A valid tetromino has exactly 4 '1's, 
 is fully connected, and does not have more than 4 borders surrounded by '1's.*/
 func isValidTetro(tetro [][]int) (bool, error) {
-	// fmt.Println(tetro)
 	var bordercount int
 	var linecount int
 
@@ -89,7 +67,6 @@ func isValidTetro(tetro [][]int) (bool, error) {
 			}
 			if tetro[row][col] == 1 && isSurroundedByOnes(tetro, row, col) {
 				bordercount++
-				// fmt.Printf("Element at (%d, %d) is surrounded by ones\n", row, col)
 			}
 		}
 	}
@@ -100,12 +77,25 @@ func isValidTetro(tetro [][]int) (bool, error) {
 	}
 
 	if bordercount > 4 || linecount > 4 {
-		return false, errors.New("invalid Tetromino")
+		return false, errors.New("ERROR")
 	} else {
 		if fullyConnected(tetro) {
 			return true, nil
 		} else {
-			return false, errors.New("tetromino is invalid")
+			return false, errors.New("ERROR")
 		}
 	}
+}
+
+
+// isConnected checks for non connected tetrominoes
+func isConnected(arr []string) bool {
+	count := 1
+	for _,ch := range arr {
+		if count % 5 == 0 && ch != ""{
+			return true
+		}
+		count++
+	}
+	return false
 }
