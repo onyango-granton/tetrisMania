@@ -29,7 +29,7 @@ func place(term Tetromino, grid [][]string, row, col int) {
 	}
 }
 
-/*remove func Removes a Tetromino from a specified position (row, col) on the grid, 
+/*remove func Removes a Tetromino from a specified position (row, col) on the grid,
 replacing its name with * to indicate an empty cell.*/
 func remove(term Tetromino, grid [][]string, row, col int) {
 	for r := range term.shape {
@@ -41,7 +41,7 @@ func remove(term Tetromino, grid [][]string, row, col int) {
 	}
 }
 
-/*completeGrid function Attempts to place all Tetrominoes in tetro_group onto the grid using recursive backtracking. 
+/*completeGrid function Attempts to place all Tetrominoes in tetro_group onto the grid using recursive backtracking.
 Starts from the indexth Tetromino and tries to place each one in every possible position on the grid.*/
 func CompleteGrid(tetro_group []Tetromino, grid [][]string, index int) bool {
 	if index == len(tetro_group) {

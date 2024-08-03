@@ -10,7 +10,7 @@ func allOne(num1, num2 int) bool {
 	return false
 }
 
-/*isSurroundedByOnes Determines if a specific element in a 2D array is surrounded by elements that are all 1s. 
+/*isSurroundedByOnes Determines if a specific element in a 2D array is surrounded by elements that are all 1s.
 This function checks horizontally and vertically adjacent elements.*/
 func isSurroundedByOnes(arr [][]int, row, col int) bool {
 	// Check horizontally
@@ -24,7 +24,7 @@ func isSurroundedByOnes(arr [][]int, row, col int) bool {
 	return false
 }
 
-/*fullyConnected func Checks if a tetromino shape (represented as a 2D slice) is fully connected. A tetromino is considered fully 
+/*fullyConnected func Checks if a tetromino shape (represented as a 2D slice) is fully connected. A tetromino is considered fully
 connected if each '1' in the shape is directly connected to at least one other '1' horizontally or vertically.*/
 func fullyConnected(tetro [][]int) bool {
 	connection := 0
@@ -54,7 +54,7 @@ func fullyConnected(tetro [][]int) bool {
 	}
 }
 
-/*isValidTetro Validates if a given tetromino shape is valid. A valid tetromino has exactly 4 '1's, 
+/*isValidTetro Validates if a given tetromino shape is valid. A valid tetromino has exactly 4 '1's,
 is fully connected, and does not have more than 4 borders surrounded by '1's.*/
 func isValidTetro(tetro [][]int) (bool, error) {
 	var bordercount int
@@ -87,12 +87,11 @@ func isValidTetro(tetro [][]int) (bool, error) {
 	}
 }
 
-
 // isConnected checks for non connected tetrominoes
 func isConnected(arr []string) bool {
 	count := 1
-	for _,ch := range arr {
-		if count % 5 == 0 && ch != ""{
+	for _, ch := range arr {
+		if count%5 == 0 && ch != "" {
 			return true
 		}
 		count++

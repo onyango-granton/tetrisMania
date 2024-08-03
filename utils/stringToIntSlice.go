@@ -5,8 +5,8 @@ import (
 	"fmt"
 )
 
-/*stringToIntSlice function converts a string of exactly four characters into a slice of integers. 
-Each character in the string is converted to its corresponding integer value using the byteToInt function. 
+/*stringToIntSlice function converts a string of exactly four characters into a slice of integers.
+Each character in the string is converted to its corresponding integer value using the byteToInt function.
 If the input string is not exactly four characters long,
  or if any character cannot be converted to an integer, an error is returned.*/
 func stringToIntSlice(s string) ([]int, error) {
