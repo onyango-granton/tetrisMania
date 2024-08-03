@@ -19,5 +19,9 @@ func ErrorHandling() error {
 		errorMsg := "invalid filename and/or extension\nUsage:\ngo run . <filename.txt>"
 		return errors.New(errorMsg)
 	}
+	if filenameList[1] != "txt" {
+		errorMsg := "invalid extension\nUsage:\ngo run . <filename.txt>"
+		return errors.New(errorMsg)
+	}
 	return nil
 }
